@@ -30,10 +30,10 @@ let s:postgres_list_schema_query = "
     \   and pg_catalog.has_schema_privilege(current_user, nspname, 'USAGE')
     \ order by nspname"
 
-let s:postgres_tables_and_views = "
+let s:postgres_tables_and_views = "SELECT table_schema, table_name FROM information_schema.tables ;"
+
       " \ SELECT table_schema, table_name FROM information_schema.tables UNION ALL
       " \ select schemaname, matviewname from pg_matviews;"
-      \ SELECT table_schema, table_name FROM information_schema.tables ;"
 let s:postgresql = {
       \ 'args': ['-A', '-c'],
       \ 'foreign_key_query': s:postgres_foreign_key_query,
