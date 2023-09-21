@@ -16,8 +16,8 @@ function! s:query.new(drawer) abort
   let instance.last_query_time = 0
   augroup dbui_async_queries
     autocmd!
-    autocmd User DBQueryPre call s:query_instance.start_query()
-    autocmd User DBQueryPost call s:query_instance.print_query_time()
+    autocmd User *DBExecutePre call s:query_instance.start_query()
+    autocmd User *DBExecutePost call s:query_instance.print_query_time()
   augroup END
   return instance
 endfunction
@@ -237,7 +237,7 @@ function! s:query.print_query_time() abort
     return
   endif
   let self.last_query_time = split(reltimestr(reltime(self.last_query_start_time)))[0]
-  call db_ui#notifications#info('Executing query...Done after '.self.last_query_time.' sec.')
+  call db_ui#notifications#info('Done after '.self.last_query_time.' sec.')
 endfunction
 
 function! s:query.execute_lines(db, lines, is_visual_mode) abort
